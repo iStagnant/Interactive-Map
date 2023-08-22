@@ -1,2 +1,2 @@
-# Interactive-Map
-This generates a template for the interactive map on the endless sky wiki
+# Requirements:
+You need [endless-parser](https://github.com/EndlessSkyCommunity/EndlessParser) installed to use this.
