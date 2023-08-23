@@ -12,7 +12,6 @@ with open(planet_map, "r") as file:
 output = "\"markers\": [\n\t"
 description = "\"description\": \""
 quotes = '"'
-planets = []
 id = 1
 #If any new species are added they should be added here and in the categories in the wiki
 ids = {
@@ -67,28 +66,35 @@ for node in system_nodes:
         else:
             government = node.government().strip(quotes)
 
-        #Loops through system planets and populates the planets list and then using that info it populates description
-        if node.planets():
-            #Quarg systems can have ringworlds which show up as multiple planets so we check if a Quarg system has more than 3 planets to detect ringworlds, and that's also the case for all Heliarch systems but just in case in the future non ringworld Heliarch systems are added we check
-            if not ((government == "Quarg" or government == "Heliarch") and len(node.planets()) > 3):
-                for planet in node.planets():
+        #Create a blacklist so wormholes can be removed instead of counted as planets
+        wormholes = []
+        for object in node.objects():
+            if ("wormhole" in object.sprite()):
+                wormholes.append(object.name())
+
+        planets = []
+        #Quarg systems can have ringworlds which show up as multiple planets so we check if a Quarg system has more than 3 planets to detect ringworlds, and that's also the case for all Heliarch systems but just in case in the future non ringworld Heliarch systems are added we check
+        if not ((government == "Quarg" or government == "Heliarch") and len(node.planets()) > 3):
+            #Loops through system planets and populates the planets list and then using that info it populates fills
+            for planet in node.planets():
+                if not (planet in wormholes):
                     planets.append(planet_attributes(planet))
-                for p in planets:
-                    #If last planet in system add the government at the end
-                    if (list(p)[0] == list(list(planets)[-1])[0]):
-                        name = list(p)[0]
-                        description += f" ```{name.strip(quotes)}```\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}``{government}``\""
-                    #If not add an extra \\n to keep the wiki style
-                    else:
-                        name = list(p)[0]
-                        description += f" ```{name.strip(quotes)}```\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}\\n"
-                planets = [] #Clear the planets list for the next system to use
-            #If above conditions are met then we should only take the name of the first planet since the rest are the same
-            else:
-                planet = planet_attributes(node.planets()[0])
-                name = list(planet)[0]
-                description += f" ```{name.strip(quotes)}```\\n  {planet[name][0]}  {planet[name][1]}  {planet[name][2]}``{government}``\""
+            for p in planets:
+                #If last planet in system add the government at the end
+                if (list(p)[0] == list(list(planets)[-1])[0]):
+                    name = list(p)[0]
+                    description += f" ```{name.strip(quotes)}```\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}``{government}``\""
+                #If not add an extra \\n to keep the wiki style
+                else:
+                    name = list(p)[0]
+                    description += f" ```{name.strip(quotes)}```\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}\\n"
+        #If above conditions are met then we should only take the name of the first planet since the rest are the same
         else:
+            planet = planet_attributes(node.planets()[0])
+            name = list(planet)[0]
+            description += f" ```{name.strip(quotes)}```\\n  {planet[name][0]}  {planet[name][1]}  {planet[name][2]}``{government}``\""
+
+        if not planets:
             description += f"  -No Spaceport\\n  -No Shipyard\\n  -No Outfitter\\n''{government}''\""
 
         name = node.name().strip(quotes) #Some systems have "" in their name in the map file so we remove them
