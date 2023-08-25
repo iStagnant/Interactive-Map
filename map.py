@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/home/elias/Documents/endless sky/endlessparser/")
+
 from endlessparser import parse
 #Put your map file location here
 system_map = "/usr/share/games/endless-sky/data/map systems.txt" 
@@ -38,8 +41,11 @@ ids = {
     "Wanderer": "19"
 }
 
-#Don't change code under here unless you know what you're doing
-output = "\"markers\": [\n\t"
+#Systems to not be parsed
+remove = ["Terra Incognita", "Over the Rainbow", "World's End"]
+
+#Don't change code under here unless you know what you're doing (I love how this implies I know what I'm doing... I really don't)
+output = "\t"
 description = "\"description\": \""
 quotes = '"'
 id = 1
@@ -47,8 +53,8 @@ id = 1
 #Takes in a planet and outputs what it has
 def planet_attributes(planet: str):
     for node in planet_nodes:
-        if (node.node_type == "planet"):
-            if (node.name() == planet or node.name() == "\"" + planet + "\""):
+        if node.node_type == "planet":
+            if node.name().strip(quotes) == planet:
                 return {planet : [
                     "-Has Spaceport\\n" if node.spaceport() else "-No Spaceport\\n",
                     "-Has Shipyard\\n" if node.shipyards() else "-No Shipyard\\n",
@@ -56,21 +62,21 @@ def planet_attributes(planet: str):
                                   ]}
 
 for node in system_nodes:
-    #The node.name() checks are to remove the systems that are from the other pug galaxy
-    if (node.node_type == "system") and not (node.name().strip(quotes) == "Terra Incognita" or node.name().strip(quotes) == "Over the Rainbow"
-    or node.name().strip(quotes) == "World's End"):
-        if("Quarg" in node.government()): #Because there's Quarg (Gegno), Quarg (Hai) etc...
+    if (node.node_type == "system") and not (node.name().strip(quotes) in remove):
+
+        #Getting the government of the system
+        if "Quarg" in node.government(): #Because there's Quarg (Gegno), Quarg (Hai) etc...
             government = "Quarg"
-        elif (node.government() == '"Kor Sestor"'): #Once the player completes the wanderer middle missions they become uninhabited
+        elif node.government() == '"Kor Sestor"': #Once the player completes the wanderer middle missions they become uninhabited
             government = "Uninhabited"
-        elif ("Bunrodea" in node.government()): #In the game file they are split to Bunrodea and Bunrodea (Guard)
+        elif "Bunrodea" in node.government(): #In the game file they are split to Bunrodea and Bunrodea (Guard)
             government = "Bunrodea"
-        elif ("Pirate" in node.government()): #There's a hidden system with government Pirate (Devil-Run Gang)
-            if (node.name() == "Men"):
+        elif "Pirate" in node.government(): #There's a hidden system with government Pirate (Devil-Run Gang)
+            if node.name() == "Men":
                 government = "Independent"
             else:
                 government = "Pirate"
-        elif ("Pug" in node.government()): #In the game files they are split to Pug and Pug (Wanderer)
+        elif "Pug" in node.government(): #In the game files they are split to Pug and Pug (Wanderer)
             government = "Pug"
         else:
             government = node.government().strip(quotes)
@@ -81,28 +87,25 @@ for node in system_nodes:
             if ("wormhole" in object.sprite()):
                 wormholes.append(object.name())
 
+        #Loops through system planets and populates the planets list and then using that info we fill description
         planets = []
-        #Quarg systems can have ringworlds which show up as multiple planets so we check if a Quarg system has more than 3 planets to detect ringworlds, and that's also the case for all Heliarch systems but just in case in the future non ringworld Heliarch systems are added we check
-        if not ((government == "Quarg" or government == "Heliarch") and len(node.planets()) > 3):
-            #Loops through system planets and populates the planets list and then using that info it populates fills
-            for planet in node.planets():
-                if not (planet in wormholes):
-                    planets.append(planet_attributes(planet))
-            for p in planets:
-                #If last planet in system add the government at the end
-                if (list(p)[0] == list(list(planets)[-1])[0]):
-                    name = list(p)[0]
-                    description += f" '''{name.strip(quotes)}'''\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}''{government}''\""
-                #If not add an extra \\n to keep the wiki style
-                else:
-                    name = list(p)[0]
-                    description += f" '''{name.strip(quotes)}'''\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}\\n"
-        #If above conditions are met then we should only take the name of the first planet since the rest are the same
-        else:
-            planets = ["Quarg"]
-            planet = planet_attributes(node.planets()[0])
-            name = list(planet)[0]
-            description += f" '''{name.strip(quotes)}'''\\n  {planet[name][0]}  {planet[name][1]}  {planet[name][2]}''{government}''\""
+        encountered_planets = []
+        for planet in node.planets():
+            #Ringworlds contain multiple planets with the same name so we check if the planet is already in the list
+            if not (planet in wormholes) and not (planet in encountered_planets):
+                encountered_planets.append(planet)
+                planets.append(planet_attributes(planet.strip(quotes)))
+
+        for p in planets:
+            #If last planet in system add the government at the end
+            if list(p)[0] == list(list(planets)[-1])[0]:
+                name = list(p)[0]
+                description += f" '''{name}'''\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}''{government}''\""
+
+            #If not add an extra \\n to keep the wiki style
+            else:
+                name = list(p)[0]
+                description += f" '''{name}'''\\n  {p[name][0]}  {p[name][1]}  {p[name][2]}\\n"
 
         if (not planets):
             description += f"  -No Spaceport\\n  -No Shipyard\\n  -No Outfitter\\n''{government}''\""
@@ -115,10 +118,11 @@ for node in system_nodes:
         elif (node.name() == "Cinxia"):
             description = "\"description\": \" '''Caelian'''\\n  -Has Spaceport\\n  -Has Shipyard\\n  -Has Outfitter\\n\\n '''Tibernia''', '''Janiculum''', '''Vatican''', '''Palatine''', '''Pincian'''\\n  -No Spaceport\\n  -No Shipyard\\n  -No Outfitter\\n''Remnant''\""
 
-        name = node.name().strip(quotes) #Some systems have "" in their name in the map file so we remove them
+        name = node.name().strip(quotes)
         position = node.position()
         x = "{:.3f}".format(base_position[0] + position[0])
         y = "{:.3f}".format(base_position[1] + position[1])
+
         output += f"""{{
             "categoryId": "{ids[government]}",
             "position": [
@@ -129,15 +133,16 @@ for node in system_nodes:
                 "title": "{name}",
                 {description},
                 "link": {{
-                    "url": "",
-                    "label": ""
+                    "url": "{name}",
+                    "label": "{name}'s wiki page"
                 }}
             }},
             "id": "{id}"
         }},
         """
+
         id += 1
         description = "\"description\": \"" #Clear the description for the next system to use
 
 with open("map.txt", "w") as file:
-    file.write(output + "]")
+    file.write(output)
