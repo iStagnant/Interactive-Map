@@ -1,6 +1,3 @@
-import sys
-sys.path.append("/home/elias/Documents/endless sky/endlessparser/")
-
 from endlessparser import parse
 #Put your map file location here
 system_map = "/usr/share/games/endless-sky/data/map systems.txt" 
@@ -123,8 +120,14 @@ for node in system_nodes:
         x = "{:.3f}".format(base_position[0] + position[0])
         y = "{:.3f}".format(base_position[1] + position[1])
 
+        #Determine if system is inhabited by checking if any of it's planets has a spaceport
+        if "-Has Spaceport" in description:
+            catid = ids[government]
+        else:
+            catid = ids["Uninhabited"]
+
         output += f"""{{
-            "categoryId": "{ids[government]}",
+            "categoryId": "{catid}",
             "position": [
                 {x},
                 {y}
