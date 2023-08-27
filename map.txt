@@ -1,3 +1,4 @@
+    "markers": [
 	{
             "categoryId": "1",
             "position": [
@@ -1407,14 +1408,14 @@
             "id": "88"
         },
         {
-            "categoryId": "18",
+            "categoryId": "25",
             "position": [
                 1879.431,
                 481.188
             ],
             "popup": {
                 "title": "Asikafarnut",
-                "description": " '''Sestor Ikfar'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n\n '''Deka Dathnak'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Sestor Ikfar'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n\n '''Deka Dathnak'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Asikafarnut",
                     "label": "Asikafarnut's wiki page"
@@ -1958,7 +1959,7 @@
             ],
             "popup": {
                 "title": "Celeborim",
-                "description": " '''Firka Tesk'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Firka Tesk'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Celeborim",
                     "label": "Celeborim's wiki page"
@@ -2943,14 +2944,14 @@
             "id": "184"
         },
         {
-            "categoryId": "18",
+            "categoryId": "25",
             "position": [
                 1937.431,
                 617.188
             ],
             "popup": {
                 "title": "Eneremprukt",
-                "description": " '''Sopi Lefarkata'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Sopi Lefarkata'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Eneremprukt",
                     "label": "Eneremprukt's wiki page"
@@ -3391,14 +3392,14 @@
             "id": "212"
         },
         {
-            "categoryId": "18",
+            "categoryId": "25",
             "position": [
                 1933.431,
                 550.188
             ],
             "popup": {
                 "title": "Ferukistek",
-                "description": " '''Keneska Fek'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Keneska Fek'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Ferukistek",
                     "label": "Ferukistek's wiki page"
@@ -5359,14 +5360,14 @@
             "id": "335"
         },
         {
-            "categoryId": "18",
+            "categoryId": "25",
             "position": [
                 1914.431,
                 437.188
             ],
             "popup": {
                 "title": "Makferuti",
-                "description": " '''Drekag Firask'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Drekag Firask'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Makferuti",
                     "label": "Makferuti's wiki page"
@@ -5583,14 +5584,14 @@
             "id": "349"
         },
         {
-            "categoryId": "7",
+            "categoryId": "12",
             "position": [
                 738.000,
                 1427.000
             ],
             "popup": {
                 "title": "Men",
-                "description": " '''Thule'''\n  -Has Spaceport\n  -No Shipyard\n  -Has Outfitter\n\n '''Smuggler's Den'''\n  -Has Spaceport\n  -Has Shipyard\n  -Has Outfitter\n''Independent''",
+                "description": " '''Thule'''\n  -Has Spaceport\n  -No Shipyard\n  -Has Outfitter\n\n '''Smuggler's Den'''\n  -Has Spaceport\n  -Has Shipyard\n  -Has Outfitter\n''Pirate''",
                 "link": {
                     "url": "Men",
                     "label": "Men's wiki page"
@@ -6262,7 +6263,7 @@
             ],
             "popup": {
                 "title": "Pantica",
-                "description": " '''Capitoline''', '''Quirinal''', '''Servian'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n\n '''Aventine'''\n  -Has Spaceport\n  -Has Shipyard\n  -Has Outfitter\n\n '''Esquiline'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Remnant''",
+                "description": " '''Capitoline''', '''Esquiline''', '''Quirinal''', '''Servian'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n\n '''Aventine'''\n  -Has Spaceport\n  -Has Shipyard\n  -Has Outfitter\n''Remnant''",
                 "link": {
                     "url": "Pantica",
                     "label": "Pantica's wiki page"
@@ -7439,14 +7440,14 @@
             "id": "465"
         },
         {
-            "categoryId": "18",
+            "categoryId": "25",
             "position": [
                 1874.431,
                 584.188
             ],
             "popup": {
                 "title": "Silikatakfar",
-                "description": " '''Sasirka Gatru'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n\n '''Sebra Skira'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Sasirka Gatru'''\n  -No Spaceport\n  -No Shipyard\n  -No Outfitter\n\n '''Sebra Skira'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Silikatakfar",
                     "label": "Silikatakfar's wiki page"
@@ -7551,14 +7552,14 @@
             "id": "472"
         },
         {
-            "categoryId": "18",
+            "categoryId": "25",
             "position": [
                 1903.431,
                 508.188
             ],
             "popup": {
                 "title": "Sobarati",
-                "description": " '''Devru Kaska'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Uninhabited''",
+                "description": " '''Devru Kaska'''\n  -Has Spaceport\n  -No Shipyard\n  -No Outfitter\n''Kor Sestor''",
                 "link": {
                     "url": "Sobarati",
                     "label": "Sobarati's wiki page"
@@ -8781,4 +8782,5 @@
                 }
             },
             "id": "549"
-        }
+        }        
+    ]
